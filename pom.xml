@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.internet2.middleware</groupId>
     <artifactId>shibboleth-identityprovider</artifactId>
-    <version>blitz-patched</version>
+    <version>blitz-patched-1</version>
     <packaging>jar</packaging>
 
     <name>Shibboleth Identity Provider</name>
     <description>
         The Shibboleth Identity Provider is used by an organization to securely assert information, via SAML, about
-        their users.  This information is then read and acted upon by Service Providers.
+        their users. This information is then read and acted upon by Service Providers.
     </description>
 
     <dependencies>
@@ -17,7 +17,7 @@
         <dependency>
             <groupId>edu.internet2.middleware</groupId>
             <artifactId>shibboleth-common</artifactId>
-            <version>blitz-patched</version>
+            <version>blitz-patched-1</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
