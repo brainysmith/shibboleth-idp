@@ -85,7 +85,6 @@ import edu.internet2.middleware.shibboleth.idp.authn.Saml2LoginContext;
 import edu.internet2.middleware.shibboleth.idp.authn.LoginContext;
 import edu.internet2.middleware.shibboleth.idp.session.Session;
 import edu.internet2.middleware.shibboleth.idp.util.HttpServletHelper;
-import com.blitz.idm.idp.storage.CacheEntryManager;
 
 /** SAML 2.0 SSO request profile handler. */
 public class SSOProfileHandler extends AbstractSAML2ProfileHandler {
@@ -234,10 +233,6 @@ public class SSOProfileHandler extends AbstractSAML2ProfileHandler {
 
             HttpServletHelper.bindLoginContext(loginContext, getStorageService(), httpRequest.getSession()
                     .getServletContext(), httpRequest, httpResponse);
-
-            /* BLITZ patch (added) : External storage service support */
-            CacheEntryManager.cacheContext(httpRequest);
-            //
 
             String authnEngineUrl = HttpServletHelper
                     .getContextRelativeUrl(httpRequest, authenticationManagerPath)

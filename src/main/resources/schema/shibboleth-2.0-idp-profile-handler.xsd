@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:mace:shibboleth:2.0:idp:profile-handler" xmlns:service="urn:mace:shibboleth:2.0:services" targetNamespace="urn:mace:shibboleth:2.0:idp:profile-handler" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:mace:shibboleth:2.0:idp:profile-handler"
+            xmlns:service="urn:mace:shibboleth:2.0:services"
+            targetNamespace="urn:mace:shibboleth:2.0:idp:profile-handler"
+            elementFormDefault="qualified">
 
     <xsd:include schemaLocation="classpath:/schema/shibboleth-2.0-profile-handler.xsd"/>
 

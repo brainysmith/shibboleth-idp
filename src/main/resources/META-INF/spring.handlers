@@ -1,1 +1,2 @@
 urn\:mace\:shibboleth\:2.0\:idp\:profile-handler = edu.internet2.middleware.shibboleth.idp.config.profile.ProfileHandlerNamespaceHandler
+urn\:identityblitz\:shibboleth\:2.0\:idp\:profile-handler = com.identityblitz.shibboleth.idp.config.profile.ProfileHandlerNamespaceHandler

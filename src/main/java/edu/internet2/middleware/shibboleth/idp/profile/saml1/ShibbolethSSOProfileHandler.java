@@ -57,7 +57,7 @@ import edu.internet2.middleware.shibboleth.common.util.HttpHelper;
 import edu.internet2.middleware.shibboleth.idp.authn.LoginContext;
 import edu.internet2.middleware.shibboleth.idp.authn.ShibbolethSSOLoginContext;
 import edu.internet2.middleware.shibboleth.idp.util.HttpServletHelper;
-import com.blitz.idm.idp.storage.CacheEntryManager;
+import com.identityblitz.shibboleth.idp.storage.CacheEntryManager;
 
 /** Shibboleth SSO request profile handler. */
 public class ShibbolethSSOProfileHandler extends AbstractSAML1ProfileHandler {

@@ -59,9 +59,9 @@ import edu.internet2.middleware.shibboleth.idp.session.Session;
 import edu.internet2.middleware.shibboleth.idp.session.impl.AuthenticationMethodInformationImpl;
 import edu.internet2.middleware.shibboleth.idp.session.impl.ServiceInformationImpl;
 import edu.internet2.middleware.shibboleth.idp.util.HttpServletHelper;
-import com.blitz.idm.idp.authn.principal.IdpPrincipalHelper;
-import com.blitz.idm.idp.authn.principal.IdpPrincipal;
-import com.blitz.idm.idp.storage.CacheEntryManager;
+import com.identityblitz.shibboleth.idp.authn.principal.IdpPrincipalHelper;
+import com.identityblitz.shibboleth.idp.authn.principal.IdpPrincipal;
+import com.identityblitz.shibboleth.idp.storage.CacheEntryManager;
 
 /** Manager responsible for handling authentication requests. */
 public class AuthenticationEngine extends HttpServlet {

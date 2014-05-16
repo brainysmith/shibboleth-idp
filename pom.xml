@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.internet2.middleware</groupId>
     <artifactId>shibboleth-identityprovider</artifactId>
-    <version>blitz-patched-1</version>
+    <version>blitz-patched-12</version>
     <packaging>jar</packaging>
 
     <name>Shibboleth Identity Provider</name>
