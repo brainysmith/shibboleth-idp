@@ -9,7 +9,9 @@ import edu.internet2.middleware.shibboleth.common.relyingparty.RelyingPartyConfi
 import edu.internet2.middleware.shibboleth.idp.authn.LoginContext;
 import edu.internet2.middleware.shibboleth.idp.authn.Saml2LoginContext;
 import edu.internet2.middleware.shibboleth.idp.profile.saml2.SSOProfileHandler;
+import edu.internet2.middleware.shibboleth.idp.session.Session;
 import org.opensaml.saml2.core.StatusCode;
+import org.opensaml.ws.transport.InTransport;
 import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.xml.io.MarshallingException;
@@ -130,6 +132,10 @@ public class SSOProfileHandlerExtended extends SSOProfileHandler {
         }
     }
 
+    @Override
+    protected Session getUserSession(InTransport inTransport) {
+        return (Session) inTransport.getAttribute(Session.HTTP_SESSION_BINDING_ATTRIBUTE);
+    }
 
     /** Stub in case we define additional context data. */
     /** In case we ever add something to the base context **/

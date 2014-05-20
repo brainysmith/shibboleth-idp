@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
+import java.util.UUID;
 
 /**
  */
@@ -77,6 +78,7 @@ public class HttpHelper {
 
     }
 
+    @SuppressWarnings("unchecked")
     public static void bindLoginContext(final LoginContext loginContext, final StorageService storageService,
                                         final HTTPInTransportWithCookie inTr, final HTTPOutTransportWithCookie outTr) {
         if (storageService == null) {
@@ -91,6 +93,13 @@ public class HttpHelper {
 
         String partition = getPartition();
         log.debug("LoginContext partition: {}", partition);
+        String contextKey = UUID.randomUUID().toString();
+        while (storageService.contains(partition, contextKey)) {
+            contextKey = UUID.randomUUID().toString();
+        }
+        LoginContextEntry entry = new LoginContextEntry(loginContext, 1800000);
+        log.debug("Storing LoginContext to StorageService partition {}, key {}", partition, loginContext.getContextKey());
+        storageService.put(partition, loginContext.getContextKey(), entry);
 
         log.debug("LoginContext key: {}", loginContext.getContextKey());
         outTr.addCookie(LOGIN_CTX_KEY_NAME, loginContext.getContextKey());
