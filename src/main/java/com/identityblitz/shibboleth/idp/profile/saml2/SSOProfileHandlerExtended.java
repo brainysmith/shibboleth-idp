@@ -19,8 +19,6 @@ import org.opensaml.xml.util.DatatypeHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-
 /**
  */
 public class SSOProfileHandlerExtended extends SSOProfileHandler {
