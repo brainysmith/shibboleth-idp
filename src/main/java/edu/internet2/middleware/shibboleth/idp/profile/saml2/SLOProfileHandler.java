@@ -448,7 +448,7 @@ public class SLOProfileHandler extends AbstractSAML2ProfileHandler {
      *
      * @param sloContext
      */
-    private void destroySession(SingleLogoutContext sloContext) {
+    protected void destroySession(SingleLogoutContext sloContext) {
         log.info("Invalidating session '{}'.", sloContext.getIdpSessionID());
         getSessionManager().destroySession(sloContext.getIdpSessionID());
     }
@@ -459,7 +459,7 @@ public class SLOProfileHandler extends AbstractSAML2ProfileHandler {
      * @param sloContext
      * @throws edu.internet2.middleware.shibboleth.common.profile.ProfileException
      */
-    private void initiateBackChannelLogout(SingleLogoutContext sloContext) throws ProfileException {
+    protected void initiateBackChannelLogout(SingleLogoutContext sloContext) throws ProfileException {
         for (LogoutInformation serviceLogoutInfo : sloContext.getServiceInformation().values()) {
             if (serviceLogoutInfo.isLoggedIn()) {
                 try {
@@ -583,7 +583,7 @@ public class SLOProfileHandler extends AbstractSAML2ProfileHandler {
         }
     }
 
-    private InitialLogoutRequestContext createInitialLogoutRequestContext() {
+    protected InitialLogoutRequestContext createInitialLogoutRequestContext() {
         InitialLogoutRequestContext initialRequest = new InitialLogoutRequestContext();
         RelyingPartyConfiguration defaultRPC =
                 getRelyingPartyConfigurationManager().getDefaultRelyingPartyConfiguration();
@@ -680,7 +680,7 @@ public class SLOProfileHandler extends AbstractSAML2ProfileHandler {
      *
      * @param sloContext
      */
-    private void populateServiceDisplayNames(SingleLogoutContext sloContext) {
+    protected void populateServiceDisplayNames(SingleLogoutContext sloContext) {
         MetadataProvider mdProvider = getMetadataProvider();
         for (LogoutInformation serviceInfo : sloContext.getServiceInformation().values()) {
             EntityDescriptor spMetadata;
@@ -848,7 +848,7 @@ public class SLOProfileHandler extends AbstractSAML2ProfileHandler {
      * @param outTransport
      * @throws edu.internet2.middleware.shibboleth.common.profile.ProfileException
      */
-    private void initiateFrontChannelLogout(
+    protected void initiateFrontChannelLogout(
             SingleLogoutContext sloContext,
             LogoutInformation serviceLogoutInfo,
             HTTPOutTransport outTransport)
@@ -964,7 +964,7 @@ public class SLOProfileHandler extends AbstractSAML2ProfileHandler {
      * @param idpSession
      * @return
      */
-    private SingleLogoutContext buildSingleLogoutContext(InitialLogoutRequestContext initialRequest, Session idpSession) {
+    protected SingleLogoutContext buildSingleLogoutContext(InitialLogoutRequestContext initialRequest, Session idpSession) {
         HttpServletRequest servletRequest =
                 ((HttpServletRequestAdapter) initialRequest.getInboundMessageTransport()).getWrappedRequest();
 

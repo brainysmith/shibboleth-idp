@@ -3,8 +3,6 @@
             xmlns:ph="urn:mace:shibboleth:2.0:idp:profile-handler"
             targetNamespace="urn:identityblitz:shibboleth:2.0:idp:profile-handler" elementFormDefault="qualified">
 
-
-    <!--<xsd:include schemaLocation="classpath:/schema/shibboleth-2.0-profile-handler-ib.xsd"/>-->
     <xsd:import namespace="urn:mace:shibboleth:2.0:idp:profile-handler" schemaLocation="classpath:/schema/shibboleth-2.0-profile-handler.xsd"/>
 
     <xsd:annotation>
@@ -28,6 +26,16 @@
                     </xsd:annotation>
                 </xsd:attribute>
             </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- SLO patch (added) -->
+    <xsd:complexType name="SAML2SLO">
+        <xsd:annotation>
+            <xsd:documentation>Configuration type for SAML 2 SLO profile handlers.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="ph:SAML2ProfileHandler" />
         </xsd:complexContent>
     </xsd:complexType>
 

@@ -1,5 +1,6 @@
 package com.identityblitz.shibboleth.idp.config.profile;
 
+import com.identityblitz.shibboleth.idp.config.profile.saml2.SAML2SLOProfileHandlerBeanDefinitionParser;
 import com.identityblitz.shibboleth.idp.config.profile.saml2.SAML2SSOProfileHandlerBeanDefinitionParser;
 import edu.internet2.middleware.shibboleth.common.config.BaseSpringNamespaceHandler;
 
@@ -17,6 +18,11 @@ public class ProfileHandlerNamespaceHandler extends BaseSpringNamespaceHandler {
 
         registerBeanDefinitionParser(SAML2SSOProfileHandlerBeanDefinitionParser.SCHEMA_TYPE,
                 new SAML2SSOProfileHandlerBeanDefinitionParser());
+
+        /* SLO patch (added) */
+        registerBeanDefinitionParser(SAML2SLOProfileHandlerBeanDefinitionParser.SCHEMA_TYPE,
+                new SAML2SLOProfileHandlerBeanDefinitionParser());
+        //
 
     }
 }
