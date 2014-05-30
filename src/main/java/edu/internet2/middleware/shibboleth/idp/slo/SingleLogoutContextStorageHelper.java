@@ -162,8 +162,6 @@ public class SingleLogoutContextStorageHelper {
                 context, SLO_CTX_PARTITION_CTX_PARAM, DEFAULT_SLO_CTX_PARTITION);
         log.debug("SingleLogoutContext partition: {}", partition);
 
-        /* BLITZ patch (deleted) : External storage service support
-
         String contextKey = UUID.randomUUID().toString();
         while (storageService.contains(partition, contextKey)) {
             contextKey = UUID.randomUUID().toString();
@@ -173,7 +171,6 @@ public class SingleLogoutContextStorageHelper {
         SingleLogoutContextEntry entry =
                 new SingleLogoutContextEntry(sloContext, 1800000);
         storageService.put(partition, contextKey, entry);
-        */
 
         log.debug("SingleLogoutContext key: {}", sloContext.getContextKey());
         Cookie contextKeyCookie = new Cookie(SLO_CTX_KEY_NAME, sloContext.getContextKey());

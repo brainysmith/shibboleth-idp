@@ -17,7 +17,6 @@
 
 package edu.internet2.middleware.shibboleth.idp.session;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 

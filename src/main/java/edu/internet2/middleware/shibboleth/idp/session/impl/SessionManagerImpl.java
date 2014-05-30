@@ -17,12 +17,8 @@
 
 package edu.internet2.middleware.shibboleth.idp.session.impl;
 
-import java.security.SecureRandom;
-
-import com.sun.net.httpserver.HttpServer;
-import edu.internet2.middleware.shibboleth.idp.authn.LoginContext;
-import edu.internet2.middleware.shibboleth.idp.authn.LoginContextEntry;
-import edu.internet2.middleware.shibboleth.idp.util.HttpServletHelper;
+import edu.internet2.middleware.shibboleth.common.session.SessionManager;
+import edu.internet2.middleware.shibboleth.idp.session.Session;
 import org.apache.commons.ssl.util.Hex;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml2.core.NameID;
@@ -32,8 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
-import edu.internet2.middleware.shibboleth.common.session.SessionManager;
-import edu.internet2.middleware.shibboleth.idp.session.Session;
+import java.security.SecureRandom;
 
 /** Manager of IdP sessions. */
 public class SessionManagerImpl implements SessionManager<Session> {
@@ -98,10 +93,8 @@ public class SessionManagerImpl implements SessionManager<Session> {
 
         Session session = new SessionImpl(sessionID, sessionSecret, sessionLifetime);
 
-        /* BLITZ patch (deleted) : External storage service support
         SessionManagerEntry sessionEntry = new SessionManagerEntry(session, sessionLifetime);
         sessionStore.put(partition, sessionID, sessionEntry);
-        */
 
         MDC.put("idpSessionId", sessionID);
         log.trace("Created session {}", sessionID);
@@ -121,10 +114,8 @@ public class SessionManagerImpl implements SessionManager<Session> {
 
         Session session = new SessionImpl(sessionID, sessionSecret, sessionLifetime);
 
-        /* BLITZ patch (deleted) : External storage service support
         SessionManagerEntry sessionEntry = new SessionManagerEntry(session, sessionLifetime);
         sessionStore.put(partition, sessionID, sessionEntry);
-        */
 
         MDC.put("idpSessionId", sessionID);
         log.trace("Created session {}", sessionID);
@@ -168,9 +159,6 @@ public class SessionManagerImpl implements SessionManager<Session> {
 
     /** {@inheritDoc} */
     public boolean indexSession(Session session, String index) {
-        return session.addIndex(index);
-
-     /* BLITZ patch (deleted) : External storage service support
         if (sessionStore.contains(partition, index)) {
             return false;
         }
@@ -187,7 +175,6 @@ public class SessionManagerImpl implements SessionManager<Session> {
         sessionStore.put(partition, index, sessionEntry);
         log.trace("Added index {} to session {}", index, session.getSessionID());
         return true;
-    */
     }
 
     /** {@inheritDoc} */

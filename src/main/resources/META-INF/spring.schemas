@@ -1,2 +1,3 @@
 urn\:mace\:shibboleth\:2.0\:idp\:profile-handler = schema/shibboleth-2.0-idp-profile-handler.xsd
 urn\:identityblitz\:shibboleth\:2.0\:idp\:profile-handler = schema/shibboleth-2.0-idp-profile-handler-ib.xsd
+urn\:identityblitz\:shibboleth\:2.0\:security\:saml = schema/shibboleth-2.0-security-policy-saml-ib.xsd

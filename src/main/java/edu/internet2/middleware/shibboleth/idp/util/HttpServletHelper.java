@@ -42,6 +42,8 @@ import edu.internet2.middleware.shibboleth.idp.authn.LoginContextEntry;
 import edu.internet2.middleware.shibboleth.idp.profile.IdPProfileHandlerManager;
 import edu.internet2.middleware.shibboleth.idp.session.Session;
 
+import java.util.UUID;
+
 /** A helper class that provides access to internal state from Servlets and hence also JSPs. */
 public class HttpServletHelper {
 
@@ -157,15 +159,13 @@ public class HttpServletHelper {
         String partition = getContextParam(context, LOGIN_CTX_PARTITION_CTX_PARAM, DEFAULT_LOGIN_CTX_PARITION);
         log.debug("LoginContext partition: {}", partition);
 
-        /* BLITZ patch (deleted) : External storage service support
         String contextKey = UUID.randomUUID().toString();
-        while (storageService.contains(parition, contextKey)) {
+        while (storageService.contains(partition, contextKey)) {
             contextKey = UUID.randomUUID().toString();
         }
         LoginContextEntry entry = new LoginContextEntry(loginContext, 1800000);
-        log.debug("Storing LoginContext to StorageService partition {}, key {}", parition, loginContext.getContextKey());
-        storageService.put(parition, loginContext.getContextKey(), entry);
-        */
+        log.debug("Storing LoginContext to StorageService partition {}, key {}", partition, loginContext.getContextKey());
+        storageService.put(partition, loginContext.getContextKey(), entry);
 
         log.debug("LoginContext key: {}", loginContext.getContextKey());
 

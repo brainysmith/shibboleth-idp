@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:sec="urn:mace:shibboleth:2.0:security"
+        targetNamespace="urn:identityblitz:shibboleth:2.0:security:saml" elementFormDefault="qualified">
+
+    <import namespace="urn:mace:shibboleth:2.0:security" schemaLocation="classpath:/schema/shibboleth-2.0-security.xsd"/>
+
+    <complexType name="SAML2HTTPPostSimpleSign">
+        <annotation>
+            <documentation>
+                A rule that checks the signature on SAML protocol messages.
+            </documentation>
+        </annotation>
+        <complexContent>
+            <extension base="sec:SecurityPolicyRuleType">
+                <attribute name="trustEngineRef" type="string" use="required">
+                    <annotation>
+                        <documentation>
+                            Reference to the trust engine used to validate the signature. 
+                        </documentation>
+                    </annotation>
+                </attribute>
+                <attribute name="parserPoolRef" type="string" default="shibboleth.ParserPool">
+                    <annotation>
+                        <documentation>
+                            Reference to the parser pool used to parse incoming XML message.
+                        </documentation>
+                    </annotation>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <complexType name="SAML2HTTPRedirectSimpleSign">
+        <annotation>
+            <documentation>
+                A rule that checks the signature on SAML protocol messages.
+            </documentation>
+        </annotation>
+        <complexContent>
+            <extension base="sec:SecurityPolicyRuleType">
+                <attribute name="trustEngineRef" type="string" use="required">
+                    <annotation>
+                        <documentation>
+                            Reference to the trust engine used to validate the signature. 
+                        </documentation>
+                    </annotation>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+
+</schema>
