@@ -172,8 +172,8 @@ public class SingleLogoutContextStorageHelper {
                 new SingleLogoutContextEntry(sloContext, 1800000);
         storageService.put(partition, contextKey, entry);
 
-        log.debug("SingleLogoutContext key: {}", sloContext.getContextKey());
-        Cookie contextKeyCookie = new Cookie(SLO_CTX_KEY_NAME, sloContext.getContextKey());
+        log.debug("SingleLogoutContext key: {}", contextKey);
+        Cookie contextKeyCookie = new Cookie(SLO_CTX_KEY_NAME,contextKey);
         contextKeyCookie.setPath("".equals(httpRequest.getContextPath()) ? "/" : httpRequest.getContextPath());
 
         /* BLITZ patch (added) : Security reason */

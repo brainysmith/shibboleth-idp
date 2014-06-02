@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.internet2.middleware</groupId>
     <artifactId>shibboleth-identityprovider</artifactId>
-    <version>blitz-patched-21</version>
+    <version>blitz-patched-25</version>
     <packaging>jar</packaging>
 
     <name>Shibboleth Identity Provider</name>
@@ -84,6 +84,18 @@
                     <target>1.5</target>
                     <debug>true</debug>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

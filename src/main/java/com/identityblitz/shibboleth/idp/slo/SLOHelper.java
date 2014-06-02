@@ -1,13 +1,21 @@
 package com.identityblitz.shibboleth.idp.slo;
 
 import com.identityblitz.shibboleth.idp.saml.ws.transposrt.HTTPInTransportWithCookie;
+import com.identityblitz.shibboleth.idp.saml.ws.transposrt.HTTPOutTransportWithCookie;
 import edu.internet2.middleware.shibboleth.idp.slo.SingleLogoutContext;
 import edu.internet2.middleware.shibboleth.idp.slo.SingleLogoutContextEntry;
+import edu.internet2.middleware.shibboleth.idp.util.HttpServletHelper;
 import org.opensaml.util.storage.StorageService;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 /**
  */
@@ -73,10 +81,82 @@ public class SLOHelper {
 
     }
 
+    public static void bindSingleLogoutContext(SingleLogoutContext sloContext, StorageService storageService,
+                                               HTTPOutTransportWithCookie otr) {
+        if (storageService == null) {
+            throw new IllegalArgumentException("Storage service may not be null");
+        }
+        if (otr == null) {
+            throw new IllegalArgumentException("Outbound HTTP transports may not be null");
+        }
+        if (sloContext == null) {
+            return;
+        }
+
+        bindSingleLogoutContext(sloContext, otr);
+
+
+        String partition = DEFAULT_SLO_CTX_PARTITION;
+        log.debug("SingleLogoutContext partition: {}", partition);
+
+        String contextKey = UUID.randomUUID().toString();
+        while (storageService.contains(partition, contextKey)) {
+            contextKey = UUID.randomUUID().toString();
+        }
+        log.debug("SingleLogoutContext key: {}", contextKey);
+
+        SingleLogoutContextEntry entry = new SingleLogoutContextEntry(sloContext, 1800000);
+        storageService.put(partition, contextKey, entry);
+
+        if (log.isDebugEnabled()) {
+            log.debug("SingleLogoutContext key: {}", contextKey);
+        }
+        otr.addCookie(SLO_CTX_KEY_NAME, contextKey);
+    }
+
     public static void bindSingleLogoutContext(SingleLogoutContext sloContext, HTTPOutTransport otr) {
         if (otr == null) {
             throw new IllegalArgumentException("HTTP request may not be null");
         }
         otr.setAttribute(SLO_CTX_KEY_NAME, sloContext);
+    }
+
+    public static SingleLogoutContext unbindSingleLogoutContext(StorageService storageService,
+                                                                HTTPInTransportWithCookie itr, HTTPOutTransportWithCookie otr) {
+        if (storageService == null || itr == null || otr == null) {
+            return null;
+        }
+
+        String sloContextKey = removeSingleLogoutContextCookie(itr, otr);
+        if (sloContextKey == null) {
+            return null;
+        }
+
+        String partition = DEFAULT_SLO_CTX_PARTITION;
+        SingleLogoutContextEntry entry = (SingleLogoutContextEntry) storageService.remove(partition, sloContextKey);
+        if (entry != null && !entry.isExpired()) {
+            return entry.getSingleLogoutContext();
+        }
+        return null;
+
+    }
+
+    /**
+     * Removes cookie for SingleLogoutContext and returns the logout context key.
+     */
+    protected static String removeSingleLogoutContextCookie(HTTPInTransportWithCookie itr,
+                                                            HTTPOutTransportWithCookie otr) {
+        String sloContextKeyCookie = itr.getCookie(SLO_CTX_KEY_NAME);
+        if (sloContextKeyCookie == null) {
+            return null;
+        }
+        String sloContextKey = DatatypeHelper.safeTrimOrNullString(sloContextKeyCookie);
+        if (sloContextKey == null) {
+            log.warn("Corrupted SingleLogoutContext Key cookie, it did not contain a value");
+        }
+
+        otr.discardCookie(SLO_CTX_KEY_NAME);
+
+        return sloContextKey;
     }
 }
