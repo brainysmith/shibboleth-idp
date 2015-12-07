@@ -122,7 +122,7 @@
 
     <properties>
         <nexus-repository>http://build.reaxoft.loc/store/content/repositories</nexus-repository>
-        <thirdparty-repository-url>${nexus-repository}/thirdparty</thirdparty-repository-url>
+        <thirdparty-repository-url>${nexus-repository}/blitz-thirdparty</thirdparty-repository-url>
     </properties>
 
     
