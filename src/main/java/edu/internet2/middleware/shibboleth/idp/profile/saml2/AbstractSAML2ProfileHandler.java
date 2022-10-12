@@ -581,6 +581,9 @@ public abstract class AbstractSAML2ProfileHandler extends AbstractSAMLProfileHan
         Credential signatureCredential = profileConfig.getSigningCredential();
         if (signatureCredential == null) {
             signatureCredential = requestContext.getRelyingPartyConfiguration().getDefaultSigningCredential();
+            log.info("####requestContext.getRelyingPartyConfiguration signatureCredential '{}'",signatureCredential.getCredentialType().getCanonicalName());
+        } else {
+            log.info("####AbstractSAML2ProfileConfiguration signatureCredential '{}'", signatureCredential.getCredentialType().getCanonicalName());
         }
 
         if (signatureCredential == null) {
@@ -594,11 +597,15 @@ public abstract class AbstractSAML2ProfileHandler extends AbstractSAMLProfileHan
 
         log.debug("Signing assertion to relying party {}", requestContext.getInboundMessageIssuer());
         Signature signature = signatureBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
+        log.info("####Signature.getSignatureAlgorithm '{}'", signature.getSignatureAlgorithm());
 
         signature.setSigningCredential(signatureCredential);
         try {
             // TODO pull SecurityConfiguration from SAMLMessageContext? needs to be added
             // TODO how to pull what keyInfoGenName to use?
+            org.opensaml.xml.security.BasicSecurityConfiguration conf = (org.opensaml.xml.security.BasicSecurityConfiguration) org.opensaml.xml.Configuration.getGlobalSecurityConfiguration();
+            log.info("####GlobalSecurityConfiguration.getSignatureAlgorithmURI for RSA'{}'", conf.getSignatureAlgorithmURI("RSA"));
+            log.info("####GlobalSecurityConfiguration.getSignatureAlgorithmURI '{}'", conf.getSignatureAlgorithmURI(signatureCredential));
             SecurityHelper.prepareSignatureParams(signature, signatureCredential, null, null);
         } catch (SecurityException e) {
             requestContext.setFailureStatus(buildStatus(StatusCode.RESPONDER_URI, null,
