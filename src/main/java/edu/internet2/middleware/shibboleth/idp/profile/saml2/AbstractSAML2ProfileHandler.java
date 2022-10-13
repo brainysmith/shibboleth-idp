@@ -604,6 +604,7 @@ public abstract class AbstractSAML2ProfileHandler extends AbstractSAMLProfileHan
             // TODO pull SecurityConfiguration from SAMLMessageContext? needs to be added
             // TODO how to pull what keyInfoGenName to use?
             org.opensaml.xml.security.BasicSecurityConfiguration conf = (org.opensaml.xml.security.BasicSecurityConfiguration) org.opensaml.xml.Configuration.getGlobalSecurityConfiguration();
+            log.info("####GlobalSecurityConfiguration '{}'", conf);
             log.info("####GlobalSecurityConfiguration.getSignatureAlgorithmURI for RSA'{}'", conf.getSignatureAlgorithmURI("RSA"));
             log.info("####GlobalSecurityConfiguration.getSignatureAlgorithmURI '{}'", conf.getSignatureAlgorithmURI(signatureCredential));
             SecurityHelper.prepareSignatureParams(signature, signatureCredential, null, null);
