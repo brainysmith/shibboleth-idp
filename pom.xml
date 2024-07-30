@@ -120,11 +120,18 @@
         </plugins>
     </reporting>
 
-    <properties>
-        <nexus-repository>http://build.reaxoft.loc/store/content/repositories</nexus-repository>
-        <thirdparty-repository-url>${nexus-repository}/blitz-thirdparty</thirdparty-repository-url>
-    </properties>
+    <repositories>
+        <repository>
+            <id>nexus.reaxoft.loc</id>
+            <name>nexus.reaxoft.loc</name>
+            <url>https://nexus.reaxoft.loc/repository/public</url>
+        </repository>
+    </repositories>
 
+    <properties>
+        <nexus-repository>https://nexus.reaxoft.loc/repository/public</nexus-repository>
+        <thirdparty-repository-url>https://nexus.reaxoft.loc/repository/blitz-thirdparty</thirdparty-repository-url>
+    </properties>
     
     <profiles>
         <profile>
@@ -151,7 +158,7 @@
             </build>
             <distributionManagement>
                 <repository>
-                    <id>build</id>
+                    <id>nexus.reaxoft.loc</id>
                     <uniqueVersion>false</uniqueVersion>
                     <url>${thirdparty-repository-url}</url>
                 </repository>
