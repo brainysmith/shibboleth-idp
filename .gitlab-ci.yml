@@ -19,4 +19,4 @@ publish:
         - master
         - /^(release|rc)-(\d*.\d*.\d*)$/
     script:
-        - mvn -e -Dmaven.test.skip=true clean compile deploy -P release
+      - mvn -Prelease -DskipTests -Dmaven.javadoc.skip=true clean compile deploy
