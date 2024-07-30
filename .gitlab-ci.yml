@@ -1,0 +1,22 @@
+# This file is a template, and might need editing before it works on your project.
+# Official Java image. Look for the different tagged releases at
+# https://hub.docker.com/r/library/java/tags/ . A Java image is not required
+# but an image with a JVM speeds up the build a bit.
+# image: java:8
+
+variables:
+  JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk
+  # JAVA_HOME: /usr/lib/jvm/jdk-17-oracle-x64
+
+stages:
+    - build
+    - publish
+
+publish:
+    stage: publish
+    tags: [mvn]
+    only:
+        - master
+        - /^(release|rc)-(\d*.\d*.\d*)$/
+    script:
+        - mvn -e -Dmaven.test.skip=true clean compile deploy -P release
