@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.internet2.middleware</groupId>
     <artifactId>shibboleth-identityprovider</artifactId>
-    <version>blitz-patched-pure</version>
+    <version>blitz-patched-pure-2</version>
     <packaging>jar</packaging>
 
     <name>Shibboleth Identity Provider</name>
@@ -17,7 +17,7 @@
         <dependency>
             <groupId>edu.internet2.middleware</groupId>
             <artifactId>shibboleth-common</artifactId>
-            <version>blitz-patched-1</version>
+            <version>blitz-patched-2</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -80,8 +80,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>11</source>
+                    <target>11</target>
                     <debug>true</debug>
                 </configuration>
             </plugin>

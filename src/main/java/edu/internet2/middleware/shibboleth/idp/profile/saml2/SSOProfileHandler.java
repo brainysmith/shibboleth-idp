@@ -696,6 +696,9 @@ public class SSOProfileHandler extends AbstractSAML2ProfileHandler {
                 } else {
                     nameId.setSPNameQualifier(requestContext.getInboundMessageIssuer());
                 }
+            } else {
+                // fix calculate index by nameId
+                nameId.setSPNameQualifier(requestContext.getInboundMessageIssuer());
             }
         }
 
