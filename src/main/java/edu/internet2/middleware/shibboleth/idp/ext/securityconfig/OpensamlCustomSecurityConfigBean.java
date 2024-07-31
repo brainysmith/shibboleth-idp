@@ -36,19 +36,11 @@ public class OpensamlCustomSecurityConfigBean implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         final SecurityConfiguration config = Configuration.getGlobalSecurityConfiguration();
         if (config instanceof BasicSecurityConfiguration) {
-            // SIGNATURE DEBUG
-            final String rsaAlgo = config.getSignatureAlgorithmURI("RSA");
-            log.info("##### OpensamlCustomSecurityConfig start RSA algo: {}", rsaAlgo);
-            //
             final BasicSecurityConfiguration basicConfig = (BasicSecurityConfiguration) Configuration.getGlobalSecurityConfiguration();
             this.handleSignatureParams(basicConfig);
             this.handleEncryptionParams(basicConfig);
             this.handleKeyInfoCredentialResolverParams(basicConfig);
             this.handleKeyInfoGeneratorParams(basicConfig);
-            // SIGNATURE DEBUG
-            final String rsaAlgo2 = config.getSignatureAlgorithmURI("RSA");
-            log.info("##### OpensamlCustomSecurityConfig patched RSA algo: {}", rsaAlgo2);
-            //
         } else {
             this.log.warn("Configuration.getGlobalSecurityConfiguration did not produce an instance of BasicSecurityConfiguration, could not apply custom security configuration settings: {}", (Object) ((config == null) ? "null" : config.getClass().getName()));
         }

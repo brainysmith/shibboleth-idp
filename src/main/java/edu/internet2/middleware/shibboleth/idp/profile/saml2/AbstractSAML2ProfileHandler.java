@@ -601,18 +601,6 @@ public abstract class AbstractSAML2ProfileHandler extends AbstractSAMLProfileHan
         Signature signature = signatureBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
 
         signature.setSigningCredential(signatureCredential);
-        // SIGNATURE DEBUG
-        Key k = SecurityHelper.extractSigningKey(signatureCredential);
-        String a = k.getAlgorithm();
-        log.info("##### Signature credentials.getKey.getAlgorithm: {}", a);
-        String a2 = signature.getSignatureAlgorithm();
-        log.info("##### Signature.getSignatureAlgorithm: {}", a2);
-        SecurityConfiguration secConfig = org.opensaml.xml.Configuration.getGlobalSecurityConfiguration();
-        String a3 = secConfig.getSignatureAlgorithmURI(signatureCredential);
-        log.info("##### SecurityConfiguration.getSignatureAlgorithmURI {}", a3);
-        XMLSignature xmlSignature = ((SignatureImpl) signature).getXMLSignature();
-        log.info("##### SecurityConfiguration.getSignatureAlgorithmURI {}", a3);
-        //
         try {
             // TODO pull SecurityConfiguration from SAMLMessageContext? needs to be added
             // TODO how to pull what keyInfoGenName to use?
