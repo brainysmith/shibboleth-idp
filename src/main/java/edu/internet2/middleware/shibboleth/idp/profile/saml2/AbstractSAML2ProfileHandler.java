@@ -17,10 +17,14 @@
 
 package edu.internet2.middleware.shibboleth.idp.profile.saml2;
 
+import java.security.Key;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.xml.security.algorithms.SignatureAlgorithm;
+import org.apache.xml.security.signature.SignedInfo;
+import org.apache.xml.security.signature.XMLSignature;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObjectBuilder;
@@ -73,6 +77,7 @@ import org.opensaml.xml.security.criteria.UsageCriteria;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureException;
 import org.opensaml.xml.signature.Signer;
+import org.opensaml.xml.signature.impl.SignatureImpl;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.Pair;
 import org.opensaml.xml.util.XMLHelper;
