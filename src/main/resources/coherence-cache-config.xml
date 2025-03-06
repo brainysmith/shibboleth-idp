@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                       -->
+<!--                   Coherence cache configuration for IDP               -->
+<!--                                                                       -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<cache-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://xmlns.oracle.com/coherence/coherence-cache-config"
+              xsi:schemaLocation="http://xmlns.oracle.com/coherence/coherence-cache-config coherence-cache-config.xsd">
+
+  <caching-scheme-mapping>
+
+    <!--
+    The clustered cache used to store idp sessions.
+    -->
+    <cache-mapping>
+        <cache-name>session</cache-name>
+        <scheme-name>frw-cache</scheme-name>
+    </cache-mapping>
+
+    <!--
+    The clustered cache used to store used idp transientIds.
+    -->
+    <cache-mapping>
+      <cache-name>transientId</cache-name>
+      <scheme-name>frw-cache</scheme-name>
+    </cache-mapping>
+
+      <!--
+      The clustered cache used to store used idp replays.
+      -->
+      <cache-mapping>
+        <cache-name>replay</cache-name>
+        <scheme-name>fast-replicated-cache</scheme-name>
+      </cache-mapping>
+
+      <!--
+      The clustered cache used to store used idp loginContext.
+      -->
+      <cache-mapping>
+        <cache-name>loginContexts</cache-name>
+        <scheme-name>fast-replicated-cache</scheme-name>
+      </cache-mapping>
+
+      <!--
+      The clustered cache used to store used idp logout Context.
+      -->
+      <cache-mapping>
+        <cache-name>sloContexts</cache-name>
+        <scheme-name>fast-replicated-cache</scheme-name>
+      </cache-mapping>
+
+      <!--
+      The clustered cache used to store resolved principal attributes.
+      -->
+      <cache-mapping>
+        <cache-name>attributes</cache-name>
+        <scheme-name>fast-replicated-cache</scheme-name>
+      </cache-mapping>
+
+  </caching-scheme-mapping>
+
+  <caching-schemes>
+
+    <!--
+    Configuration of distributed store for IDP session store
+    BEGIN
+    -->
+    <!-- Fast read-write distributed cache cache -->
+    <near-scheme>
+        <scheme-name>frw-cache</scheme-name>
+        <front-scheme>
+            <local-scheme>
+                <scheme-ref>local-lru-cache</scheme-ref>
+                <high-units>1000</high-units>
+                <low-units>100</low-units>
+            </local-scheme>
+        </front-scheme>
+        <back-scheme>
+            <distributed-scheme>
+                <service-name>FRWCacheService</service-name>
+                <local-storage system-property="tangosol.coherence.distributed.localstorage">false</local-storage>
+                <partition-count>257</partition-count>
+
+                <backup-count>1</backup-count>
+                <backup-storage>
+                    <type>scheme</type>
+                    <scheme-name>local-lru-cache</scheme-name>
+                </backup-storage>
+
+                <backing-map-scheme>
+                    <partitioned>true</partitioned>
+                    <local-scheme>
+                        <scheme-ref>local-lru-cache</scheme-ref>
+                        <expiry-delay>{cache-expiry 0}</expiry-delay>
+                    </local-scheme>
+                </backing-map-scheme>
+            </distributed-scheme>
+        </back-scheme>
+        <invalidation-strategy>present</invalidation-strategy>
+        <autostart>true</autostart>
+    </near-scheme>
+
+    <replicated-scheme>
+        <scheme-name>fast-replicated-cache</scheme-name>
+        <service-name>FRCacheService</service-name>
+        <request-timeout>30s</request-timeout>
+        <backing-map-scheme>
+            <local-scheme>
+                <scheme-ref>local-lru-cache</scheme-ref>
+                <high-units>10000</high-units>
+            </local-scheme>
+        </backing-map-scheme>
+        <autostart>true</autostart>
+    </replicated-scheme>
+
+    <local-scheme>
+        <scheme-name>local-lru-cache</scheme-name>
+        <eviction-policy>LRU</eviction-policy>
+        <high-units>{high-size 1000000}</high-units>
+        <low-units>{low-size 0}</low-units>
+        <unit-calculator>FIXED</unit-calculator>
+    </local-scheme>
+    <!--
+    Configuration of distributed store for IDP session store
+    END
+    -->
+
+  </caching-schemes>
+</cache-config>
